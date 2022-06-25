@@ -1,0 +1,28 @@
+{
+  "name": "simple-profile-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dayanch-n/simple-profile-backend.git"
+  },
+  "author": "Dayanch",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dayanch-n/simple-profile-backend/issues"
+  },
+  "homepage": "https://github.com/dayanch-n/simple-profile-backend#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongodb": "^4.7.0",
+    "mongoose": "^6.4.0"
+  },
+  "devDependencies": {
+    "body-parser": "^1.20.0",
+    "nodemon": "^2.0.18"
+  }
+}
