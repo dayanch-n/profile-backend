@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,7 @@
   },
   "homepage": "https://github.com/dayanch-n/simple-profile-backend#readme",
   "dependencies": {
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "mongodb": "^4.7.0",
