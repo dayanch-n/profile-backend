@@ -27,8 +27,9 @@ export const register = (req, res, next) => {
 
     user
       .save()
-      .then((_) => {
-        res.json({ message: "User Created Successfully" });
+      .then((user) => {
+        const newUser = {...user._doc, _id: user._id.toString()};
+        res.json({ message: "User Created Successfully", user: newUser });
       })
       .catch((err) => res.status(500).send(err));
   });
@@ -51,7 +52,8 @@ export const login = (req, res, next) => {
     if (!user.validPassword(password)) {
       return res.status(400).send({ message: "Incorrect credentials" });
     }
-    return res.status(201).send({ message: "Successfully authenticated" });
+    const authUser = {...user._doc, _id: user._id.toString()};
+    return res.status(201).send({ message: "Successfully authenticated", user: authUser });
   });
 };
 
@@ -61,7 +63,11 @@ export const getPeople = (req, res, next) => {
   User.find({}, (err, users) => {
     if (users) {
       const people = users.filter((user) => user._id.toString() !== userId);
-      return res.status(200).send(people);
+      const withAgePeople = people.map((user) => {
+        const age = Math.floor((new Date() - new Date(user.dob).getTime()) / 3.15576e+10)
+        return {...user._doc, age}
+      })
+      return res.status(200).send(withAgePeople);
     }
     return res.status(200).send([]);
   });
@@ -98,8 +104,13 @@ export const updateUser = (req, res, next) => {
         .status(500)
         .send({ messege: "Failed to update the user data." });
     }
-    return res
-      .status(201)
-      .send({ message: "User details updated successfully." });
+
+    User.findOne({_id: id}, (err, updateUserData) => {
+      if (updateUserData) {
+        return res
+          .status(201)
+          .send({ message: "User details updated successfully.", user: updateUserData._doc });
+      }
+    });
   });
 };
